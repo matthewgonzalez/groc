@@ -1,6 +1,6 @@
 {
   "name":        "groc",
-  "version":     "0.5.5",
+  "version":     "0.5.6",
   "description": "Documentation generation, in the spirit of literate programming.",
   "keywords":   ["documentation", "docs", "generator"],
   "homepage":    "http://nevir.github.com/groc/",
@@ -13,7 +13,7 @@
 
   "repository": {
     "type": "git",
-    "url":  "https://github.com/gilt/groc"
+    "url":  "https://github.com/matthewgonzalez/groc"
   },
 
   "main": "./index",

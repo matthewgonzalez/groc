@@ -31,7 +31,7 @@ module.exports = LANGUAGES =
     ignorePrefix:      '}'
 
   CoffeeScript:
-    nameMatchers:      ['.coffee', 'Cakefile']
+    nameMatchers:      ['.coffee', 'Cakefile', '.coffee.erb']
     pygmentsLexer:     'coffee-script'
     singleLineComment: ['#']
     ignorePrefix:      '}'
@@ -70,7 +70,7 @@ module.exports = LANGUAGES =
     ignorePrefix:      '}'
 
   JavaScript:
-    nameMatchers:      ['.js']
+    nameMatchers:      ['.js', '.js.erb']
     pygmentsLexer:     'javascript'
     singleLineComment: ['//']
     multiLineComment:  ['/*', '*', '*/']

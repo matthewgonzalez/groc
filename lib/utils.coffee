@@ -45,9 +45,9 @@ module.exports = Utils =
   # Map a list of file paths to relative target paths by stripping prefixes off of them.
   mapFiles: (resolveRoot, files, stripPrefixes) ->
     # Ensure that we're dealing with absolute paths across the board
-    files = files.map (f) -> path.resolve resolveRoot, f
+    files = files.map (f) -> path.resolve f
     # And that the strip prefixes all end with a /, to avoid a target path being absolute.
-    stripPrefixes = stripPrefixes.map (p) -> path.join( "#{path.resolve resolveRoot, p}#{CompatibilityHelpers.pathSep}" )
+    stripPrefixes = stripPrefixes.map (p) -> path.join( "#{path.resolve p}#{CompatibilityHelpers.pathSep}" )
 
     # Prefixes are stripped in order of most specific to least (# of directories deep)
     prefixes = stripPrefixes.sort (a,b) => @pathDepth(b) - @pathDepth(a)

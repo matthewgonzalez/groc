@@ -108,8 +108,9 @@ body
 // In two-column mode, the segment is actually shifted over a full column to favor code fragments.
 // We may or may not have either .comment or .code sections, so we need to handle all three cases.
 .segment
-  padding:     ($common-margin / 2) 0 ($common-margin / 2) $commentary-column-width
+  //padding:     ($common-margin / 2) 0 ($common-margin / 2) 100%
   white-space: nowrap
+  width: 100%
 
   &:first-child
     padding-top: $common-margin + $column-padding
@@ -123,8 +124,8 @@ body
     padding:        15px ($common-margin + $column-padding)
 
   .comments
-    margin-left: -$commentary-column-width
-    width:        $commentary-width
+    width:        100%
+    box-sizing: border-box
     position: relative
     z-index: 2
     white-space:  normal
@@ -136,8 +137,8 @@ body
 
 // Fit the meta info into the code column
 #meta
-  position: absolute
-  left:     $commentary-column-width
+  position: relative
+  left:     100%
   @include background-image(linear-gradient(left, darken($code-background-color, 10%), transparent))
   right: 0
   white-space: nowrap
@@ -276,6 +277,9 @@ $navigation-shift-duration: 150ms
 nav
   +transition(height 0 $navigation-shift-duration)
   height: 100%
+
+  @media (max-width: #{$single-column-toggle-width})
+    height: 0px
 
   .tools .toggle
     +transition(background $navigation-shift-duration)
@@ -441,26 +445,32 @@ html
   position: absolute
   right: 319px
   bottom: 0px
+  @media (max-width: #{$single-column-toggle-width})
+    right: 0
   .dsc-watermark
     +background($commentary-background-color $background-gradient $commentary-column-width no-repeat)
-    background:      inline-image('dsc-watermark.png') top right no-repeat
-    position: absolute
+    background: inline-image('dsc-watermark.png') top right no-repeat
+    position: fixed
+    right: $tools-width
     z-index: 1
-    width: $commentary-column-width
+    width: 100%
     height: 250px
-    left: 0px
     top: 0px
+    @media (max-width: #{$single-column-toggle-width})
+      display: none
 
 // We cheat and use #document to display the shadow
 #document
   background: inline-image('wood-bg.jpg') top right repeat
   @include box-shadow(inset -35px 0px 15px #000)
   max-width: $commentary-column-width
+  width: 40%
   //padding-right: $code-column-shadow-width
 
   @media (max-width: #{$single-column-toggle-width})
     margin-right:  0
     padding-right: 0
+    width: 100%
 
 #meta > *
   +commentary-font
@@ -507,9 +517,9 @@ nav
     +tools-font
 
   .tools
-    +box-shadow(rgba(0,0,0,0.3) 0 0 0.5em 0.1em)
-    +background(linear-gradient(top, lighten($tools-background-color, 10%), darken($tools-background-color, 10%)))
-    +border-bottom-left-radius(0.4em)
+    //+box-shadow(rgba(0,0,0,0.3) 0 0 0.5em 0.1em)
+    //+background(linear-gradient(top, lighten($tools-background-color, 10%), darken($tools-background-color, 10%)))
+    //+border-bottom-left-radius(0.4em)
     border-bottom: 1px solid $tools-foreground-color
     border-left:   1px solid $tools-foreground-color
 
@@ -542,7 +552,7 @@ nav
       position:    relative
 
   .toc
-    +box-shadow(rgba(0,0,0,0.3) 0 0 0.5em 0.1em)
+    //+box-shadow(rgba(0,0,0,0.3) 0 0 0.5em 0.1em)
     background:  $tools-background-color
     border-left: 1px solid darken($tools-background-color, 25%)
 
@@ -573,7 +583,9 @@ nav
     //  background: #000
 
     .selected.file > .label
-      background: #000
+      background: $tools-foreground-color
+      color: $tools-background-color
+      text-shadow: none
 
     // Search styling
     .label em
@@ -581,7 +593,22 @@ nav
 
     // This isn't the best of signals...
     .file > .label em
-      color: darken($tools-foreground-color, 25%)
+      color: darken($tools-background-color, 25%)
+
+    // This isn't the best of signals...
+    .file.selected.matched > .label em
+      color: #fff
+
+    .file.selected.matched > .label
+      font-weight: normal
+      color: darken(desaturate($tools-background-color, 20%), 25%)
+
+    .file.matched > .label em
+      color: darken($tools-foreground-color, 15%)
+
+    .file.matched > .label
+      font-weight: normal
+      color: darken(desaturate($tools-background-color, 20%), 35%)
 
     .matched-child > .label
       +opacity(0.65)

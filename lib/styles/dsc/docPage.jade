@@ -14,21 +14,20 @@ html(lang="en")
 
   body
     .doc-pane
-        #meta
-          - if (project.githubURL)
-            .file-path
-              a(href=project.githubURL + '/blob/master/' + projectPath)= projectPath
-          - else
-            .file-path= projectPath
         #document
+          #meta
+            - if (project.githubURL)
+              .file-path
+                a(href=project.githubURL + '/blob/master/' + projectPath)= projectPath
+            - else
+              .file-path= projectPath
           - for (var i in segments)
             .segment
               - if (i < 1)
                 .dsc-watermark
 
-              - if (segments[i].markdownedComments != '')
-                div(class="comments " + (segments[i].accessClasses || ''))
-                  .wrapper!= segments[i].markdownedComments
+              div(class="comments " + (segments[i].accessClasses || ''))
+                .wrapper!= segments[i].markdownedComments
 
               - if (segments[i].highlightedCode != '')
                 .code

@@ -16,7 +16,7 @@ module.exports = class DSC extends Base
   constructor: (args...) ->
     super(args...)
 
-    @sourceAssets = path.join __dirname, 'default'
+    @sourceAssets = path.join __dirname, 'dsc'
     @targetAssets = path.resolve @project.outPath, 'assets'
 
     templateData  = fs.readFileSync path.join(@sourceAssets, 'docPage.jade'), 'utf-8'
